@@ -86,3 +86,10 @@ jmeter-fb.*
 hs_err_pid*
 # other jvm related files
 .attach_*
+
+# examples
+/bin/examples
+
+# PluginsManagerCMD
+/bin/PluginsManagerCMD.bat
+/bin/PluginsManagerCMD.sh

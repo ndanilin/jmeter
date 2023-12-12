@@ -92,6 +92,7 @@ public class InfluxdbBackendListenerClient extends AbstractBackendListenerClient
     private static final String METRIC_ENDED_THREADS = "endedT=";
 
     private static final String TAG_OK = "ok";
+    private static final String TAG_OK_KEEP_PCT = "ok_keep_pct";
     private static final String TAG_KO = "ko";
     private static final String TAG_ALL = "all";
 
@@ -186,6 +187,10 @@ public class InfluxdbBackendListenerClient extends AbstractBackendListenerClient
         addMetric(transaction, metric.getSuccesses(), metric.getSentBytes(), metric.getReceivedBytes(),
                 TAG_OK, metric.getOkMean(), metric.getOkMinTime(),
                 metric.getOkMaxTime(), metric.getHits(), okPercentiles.values(), metric::getOkPercentile);
+        // OK_KEEP_PCT
+        addMetric(transaction, metric.getSuccesses(), metric.getSentBytes(), metric.getReceivedBytes(),
+                TAG_OK_KEEP_PCT, metric.getOkMean(), metric.getOkMinTime(),
+                metric.getOkMaxTime(), metric.getHits(), okPercentiles.values(), metric::getPctOkPercentile);
         // KO
         addMetric(transaction, metric.getFailures(), metric.getSentBytes(), metric.getReceivedBytes(),
                 TAG_KO, metric.getKoMean(), metric.getKoMinTime(),

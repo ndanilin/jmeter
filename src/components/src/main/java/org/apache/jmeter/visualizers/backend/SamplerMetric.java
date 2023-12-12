@@ -59,6 +59,7 @@ public class SamplerMetric {
      * Timeboxed percentiles don't makes sense
      */
     private final DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
+    private final DescriptiveStatistics pctOkResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
     private int successes;
     private int failures;
     private int hits;
@@ -133,6 +134,7 @@ public class SamplerMetric {
             // Should we also compute KO , all response time ?
             // only take successful requests for time computing
             okResponsesStats.addValue((double) time);
+            pctOkResponseStats.addValue((double) time);
         }else {
             koResponsesStats.addValue((double) time);
         }
@@ -262,6 +264,10 @@ public class SamplerMetric {
      */
     public double getOkPercentile(double percentile) {
         return okResponsesStats.getPercentile(percentile);
+    }
+
+    public double getPctOkPercentile(double percentile) {
+        return pctOkResponseStats.getPercentile(percentile);
     }
 
     /**
